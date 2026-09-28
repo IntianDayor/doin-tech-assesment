@@ -1,5 +1,8 @@
 export default function SectionHeading() {
     return (
-        <h1>Heading Scaffold</h1>
+        <>
+            <h1>Section Heading</h1>
+            <p>Test</p>
+        </>
     );
 }
