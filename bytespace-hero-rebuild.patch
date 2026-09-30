@@ -1,0 +1,195 @@
+diff --git a/src/components/sections/Hero.jsx b/src/components/sections/Hero.jsx
+index 6d7cff8..c47968a 100644
+--- a/src/components/sections/Hero.jsx
++++ b/src/components/sections/Hero.jsx
+@@ -1,52 +1,153 @@
+ import Button from "../ui/Button";
+ 
++// Real coordinates pulled from Figma (Hero_Frame is a fixed 1440x1024 canvas).
++// Converted to % of that canvas so the whole layout scales down together
++// inside a same-aspect-ratio container, instead of drifting apart at
++// smaller widths. Only shown at lg+ — see the simplified stack below it
++// for mobile/tablet.
++const CANVAS_W = 1440;
++const CANVAS_H = 1024;
++const pct = (px, axis) => `${(px / (axis === "x" ? CANVAS_W : CANVAS_H)) * 100}%`;
++
+ export default function Hero() {
+   return (
+     <section className="relative bg-primary-800 overflow-hidden">
+-      <div className="container-bs pt-8 pb-24 relative z-10">
+-        <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-6">
+-          <h1 className="font-heading text-heading-s md:text-heading-l text-white">
+-            Get Access to Hundreds Courses Available
+-          </h1>
+-          <p className="text-body-m text-white/80 max-w-xl">
+-            Unlock your creativity, gain valuable knowledge, and grow your
+-            business with our wide range of courses.
+-          </p>
+-
+-          <div className="w-full max-w-xl flex items-center bg-white rounded-full p-1.5 mt-2">
+-            <input
+-              type="text"
+-              placeholder="Course, topic, creator"
+-              className="flex-1 bg-transparent px-4 text-body-s text-neutral-950 placeholder:text-neutral-400 outline-none"
+-            />
+-            <Button variant="primary" size="md" label="Search" />
++      {/* Real decorative grid pattern from the design (not just an editor overlay) */}
++      <img
++        src="/src/assets/images/hero/grid-overlay.svg"
++        alt=""
++        className="absolute inset-0 w-full h-full object-cover opacity-100 pointer-events-none"
++      />
++
++      {/* Scattered 3D shapes — approximate placement/scale from the design;
++          the real file uses masked/blended textures too complex to
++          reproduce exactly with plain PNGs, so these are close, not pixel-exact. */}
++      <img src="/src/assets/images/shapes/shape-spiral.png" alt="" className="hidden lg:block absolute left-[2%] top-[18%] w-[90px] opacity-95" />
++      <img src="/src/assets/images/shapes/shape-spiral-dark.png" alt="" className="hidden lg:block absolute left-[11%] top-[36%] w-[70px] opacity-90" />
++      <img src="/src/assets/images/shapes/shape-torus.png" alt="" className="hidden lg:block absolute left-[2%] bottom-[6%] w-[160px] opacity-95" />
++      <img src="/src/assets/images/shapes/shape-triangle.png" alt="" className="hidden lg:block absolute right-[4%] top-[38%] w-[110px] opacity-95" />
++      <img src="/src/assets/images/shapes/shape-cylinder.png" alt="" className="hidden lg:block absolute right-[-3%] top-[16%] w-[220px] opacity-95" />
++      <img src="/src/assets/images/shapes/shape-spiral-dark-2.png" alt="" className="hidden lg:block absolute right-[3%] bottom-[10%] w-[80px] opacity-90" />
++
++      {/* Fixed-aspect canvas: real Figma px values converted to % so this
++          whole block scales as one unit instead of elements drifting apart. */}
++      <div
++        className="relative mx-auto w-full max-w-[1440px]"
++        style={{ aspectRatio: `${CANVAS_W} / ${CANVAS_H}` }}
++      >
++        {/* Heading + subtitle + search — centered block starting at y=169px */}
++        <div
++          className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-[3.5%] text-center w-[83%]"
++          style={{ top: pct(169, "y") }}
++        >
++          <div className="flex flex-col items-center gap-4">
++            <h1 className="font-heading font-semibold text-white text-[2.4vw] lg:text-[3.2vw] xl:text-heading-l leading-[1.2] tracking-tight max-w-[935px]">
++              Get Access to Hundreds Courses Available
++            </h1>
++            <p className="text-body-l text-neutral-100 max-w-xl">
++              Unlock your creativity, gain valuable knowledge, and grow your
++              business with our wide range of courses.
++            </p>
+           </div>
+-        </div>
+ 
+-        {/* Hero photo + floating cards */}
+-        <div className="relative mt-16 flex justify-center">
+-          <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-secondary-500" />
+-          <img
+-            src="/src/assets/images/hero/hero-student.png"
+-            alt="Student using ByteSpace"
+-            className="absolute bottom-0 w-56 md:w-72 object-contain"
+-          />
+-
+-          <div className="hidden md:flex absolute left-0 top-8 items-center gap-3 bg-white rounded-2xl shadow-lg px-4 py-3">
+-            <span className="w-8 h-8 rounded-full bg-primary-100" />
+-            <div>
+-              <p className="text-label-s font-medium text-neutral-950">UI/UX Design</p>
++          {/* Search — two separate rounded-24 pills with a gap, not one merged pill */}
++          <div className="flex items-center gap-4">
++            <div className="flex items-center gap-2 bg-white rounded-card h-[52px] px-6 w-[300px] sm:w-[461px]">
++              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="shrink-0 text-neutral-400">
++                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
++                <path d="M20 20L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
++              </svg>
++              <input
++                type="text"
++                placeholder="Course, topic, creator"
++                className="flex-1 h-full bg-transparent text-body-l text-neutral-950 placeholder:text-neutral-400 outline-none"
++              />
+             </div>
++            <Button variant="primary" size="lg" label="Search" />
++          </div>
++        </div>
++
++        {/* Big lime circle — 1149px diameter, mostly below the fold */}
++        <div
++          className="absolute left-1/2 -translate-x-1/2 rounded-full bg-secondary-400"
++          style={{
++            width: pct(1149, "x"),
++            aspectRatio: "1 / 1",
++            top: pct(582, "y"),
++          }}
++        />
++
++        {/* Hero photo — 578x541 in the real design */}
++        <img
++          src="/src/assets/images/hero/hero-student.png"
++          alt="Student using ByteSpace"
++          className="absolute left-1/2 -translate-x-1/2 object-contain drop-shadow-2xl"
++          style={{ width: pct(578, "x"), top: pct(512, "y") }}
++        />
++
++        {/* Floating card: UI/UX Design */}
++        <div
++          className="hidden lg:flex absolute flex-col bg-white/95 backdrop-blur rounded-2xl p-4 gap-1"
++          style={{ left: pct(404, "x"), top: pct(639, "y") }}
++        >
++          <p className="text-label-m font-medium text-neutral-950 whitespace-nowrap">UI/UX Design</p>
++          <p className="text-body-xs text-neutral-400 whitespace-nowrap">200 Courses &bull; 1000+ Students</p>
++        </div>
++
++        {/* Floating card: Learning Progress */}
++        <div
++          className="hidden lg:flex absolute flex-col bg-white/95 backdrop-blur rounded-2xl p-4 gap-2 w-[232px]"
++          style={{ left: pct(842, "x"), top: pct(651, "y") }}
++        >
++          <p className="text-label-s font-medium text-neutral-950">Learning Progress</p>
++          <p className="font-heading text-heading-xs font-semibold text-neutral-950">55%</p>
++          <div className="w-full h-2 rounded-card bg-neutral-50">
++            <div className="h-2 rounded-card bg-secondary-400" style={{ width: "56%" }} />
+           </div>
++        </div>
+ 
+-          <div className="hidden md:flex absolute right-0 top-12 flex-col gap-1 bg-white rounded-2xl shadow-lg px-4 py-3">
+-            <p className="text-label-s text-neutral-400">Learning Progress</p>
+-            <p className="text-label-l font-semibold text-neutral-950">55%</p>
++        {/* Floating card: Happy Students */}
++        <div
++          className="hidden lg:flex absolute flex-col bg-white/95 backdrop-blur rounded-2xl p-4 gap-2 w-[258px]"
++          style={{ left: pct(328, "x"), top: pct(837, "y") }}
++        >
++          <p className="text-label-m font-medium text-neutral-950">Happy Students</p>
++          <p className="text-body-xs text-neutral-400">4.5 (240) &#9733;</p>
++          <div className="flex items-center mt-1">
++            {[
++              "avatar-woman-blue-hair",
++              "avatar-man-hiker",
++              "avatar-man-hat",
++              "avatar-man-apron",
++              "avatar-man-beard-1",
++              "avatar-man-cyclist",
++              "avatar-man-gray-beard",
++            ].map((name, i) => (
++              <img
++                key={name}
++                src={`/src/assets/images/avatars/${name}.png`}
++                alt=""
++                className="w-9 h-9 rounded-full border-2 border-white object-cover -ml-3 first:ml-0"
++                style={{ zIndex: i }}
++              />
++            ))}
++            <span className="w-9 h-9 -ml-3 rounded-full bg-secondary-400 text-neutral-950 text-label-xs font-semibold flex items-center justify-center border-2 border-white">
++              2K+
++            </span>
+           </div>
++        </div>
++      </div>
+ 
+-          <div className="hidden md:flex absolute left-8 bottom-0 flex-col gap-2 bg-white rounded-2xl shadow-lg px-4 py-3">
+-            <p className="text-label-s font-medium text-neutral-950">Happy Students</p>
+-            <p className="text-label-xs text-neutral-400">4.5 (240) ★</p>
++      {/* Mobile/tablet fallback: simplified stacked version below lg */}
++      <div className="lg:hidden container-bs pb-16 relative z-10">
++        <div className="flex justify-center">
++          <div className="relative w-64 h-64 sm:w-80 sm:h-80">
++            <div className="absolute inset-0 rounded-full bg-secondary-400" />
++            <img
++              src="/src/assets/images/hero/hero-student.png"
++              alt="Student using ByteSpace"
++              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-56 sm:w-72 object-contain"
++            />
+           </div>
+         </div>
+       </div>
