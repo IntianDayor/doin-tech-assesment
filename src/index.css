@@ -3,6 +3,7 @@
 @theme {
   /* Fonts */
   --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Clash Display", "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
 
   /* Neutral */
@@ -43,6 +44,22 @@
   --color-secondary-800: #546b09;
   --color-secondary-900: #465a0d;
   --color-secondary-950: #243300;
+
+  /* Electric Violet — selective accent CTAs (per DESIGN.md source doc) */
+  --color-violet-50: #f5f2ff;
+  --color-violet-600: #7f30f7;
+  --color-violet-950: #300b6a;
+
+  /* Card/control radius (DESIGN.md: 24px is the dominant card/control radius) */
+  --radius-card: 24px;
+
+  /* Electric Violet — selective accent CTAs (per DESIGN.md source doc) */
+  --color-violet-50: #f5f2ff;
+  --color-violet-600: #7f30f7;
+  --color-violet-950: #300b6a;
+
+  /* Card/control radius (DESIGN.md: 24px is the dominant card/control radius) */
+  --radius-card: 24px;
 
   /* Type scale: Headings (Poppins SemiBold, 120%) */
   --text-heading-l: 72px;
@@ -112,4 +129,10 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 40px;
   }
+}
+
+.blue-grid {
+  background-image: url("./assets/images/hero/grid-overlay.svg");
+  background-position: center top;
+  background-size: cover;
 }

@@ -1,7 +1,25 @@
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import Hero from "../components/sections/Hero";
+import LogoStrip from "../components/sections/LogoStrip";
+import CourseShowcase from "../components/sections/CourseShowcase";
+import Categories from "../components/sections/Categories";
+import CreatorFeature from "../components/sections/CreatorFeature";
+import CreatorCTA from "../components/sections/CreatorCTA";
+import Testimonials from "../components/sections/Testimonials";
+
 export default function Landing() {
   return (
-    <main className="container-bs py-20">
-      <h1 className="font-heading text-heading-l text-primary-800">ByteSpace</h1>
-    </main>
-  )
+    <>
+      <Navbar />
+      <Hero />
+      <LogoStrip />
+      <CourseShowcase />
+      <Categories />
+      <CreatorFeature />
+      <CreatorCTA />
+      <Testimonials />
+      <Footer />
+    </>
+  );
 }
